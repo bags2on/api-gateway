@@ -2,6 +2,7 @@ package gclients
 
 import (
 	"context"
+
 	"github.com/bags2on/api-gateway/graph/model"
 	proto "github.com/bags2on/api-gateway/protobuf"
 	"google.golang.org/grpc"
@@ -39,7 +40,7 @@ func (p *ProductsClient) GetProducts(ctx context.Context) ([]model.Product, erro
 		products = append(products, model.Product{
 			ID:     value.Id,
 			Title:  value.Title,
-			Price:  value.Price,
+			Price:  int(value.Price),
 			Images: value.Images,
 		})
 	}

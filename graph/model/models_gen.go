@@ -5,6 +5,6 @@ package model
 type Product struct {
 	ID     string   `json:"id"`
 	Title  string   `json:"title"`
-	Price  uint32   `json:"price"`
+	Price  int      `json:"price"`
 	Images []string `json:"images"`
 }
