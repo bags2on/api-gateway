@@ -1,0 +1,24 @@
+syntax="proto3";
+
+
+package protobuf;
+option go_package="proto";
+
+// from graphql schema
+message Product {
+    string id = 1;
+    string title = 2;
+    uint32 price = 3;
+    repeated string images = 4;
+}
+
+message ProductRequest {} // empty
+
+message ProductResponse {
+    repeated Product products = 1;
+}
+
+service ProductService{
+    // Unary
+    rpc GetProducts(ProductRequest) returns (ProductResponse) {};
+}

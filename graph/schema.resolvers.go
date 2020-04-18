@@ -7,8 +7,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bags2on/api-gatway/graph/generated"
-	"github.com/bags2on/api-gatway/graph/model"
+	"github.com/bags2on/api-gateway/graph/generated"
+	"github.com/bags2on/api-gateway/graph/model"
 )
 
 func (r *queryResolver) Products(ctx context.Context) ([]*model.Product, error) {
