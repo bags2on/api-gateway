@@ -12,6 +12,8 @@ import (
 	"github.com/bags2on/api-gateway/gclients"
 	"github.com/bags2on/api-gateway/graph/generated"
 	"github.com/bags2on/api-gateway/graph/model"
+	"github.com/go-chi/chi"
+	"github.com/rs/cors"
 )
 
 const (
@@ -81,9 +83,19 @@ func main() {
 
 	s := Gozs()
 
-	http.Handle("/", handler.NewDefaultServer(s.ToExecutableSchema()))
-	http.Handle("/playground", playground.Handler("GraphQL playground", "/query"))
+	router := chi.NewRouter()
+
+	// Add CORS middleware around every request
+	// See https://github.com/rs/cors for full option listing
+	router.Use(cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+		Debug:            true,
+	}).Handler)
+
+	router.Handle("/", handler.NewDefaultServer(s.ToExecutableSchema()))
+	router.Handle("/playground", playground.Handler("GraphQL playground", "/query"))
 
 	log.Printf("connect to http://localhost:%s/playground for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
