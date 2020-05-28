@@ -15,6 +15,10 @@ func (r *queryResolver) Products(ctx context.Context) ([]*model.Product, error) 
 	panic(fmt.Errorf("not implemented"))
 }
 
+func (r *queryResolver) Product(ctx context.Context, id string) (*model.Product, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 

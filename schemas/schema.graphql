@@ -5,6 +5,8 @@ type Product {
   images: [String!]
 }
 
+
 type Query {
   products: [Product!]!
+  product(id: ID!): Product
 }

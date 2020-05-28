@@ -47,6 +47,16 @@ func (r *QueryResolver) Products(c context.Context) ([]*model.Product, error) {
 	return products, nil
 }
 
+
+func (r *QueryResolver) Product(c context.Context, id string) (*model.Product, error) {
+	return &model.Product{
+		ID:     "01",
+		Title:  "Product By Id",
+		Price:  1000,
+		Images: nil,
+	}, nil
+}
+
 type Server struct {
 	productsClient *gclients.ProductsClient
 }
