@@ -47,3 +47,20 @@ func (p *ProductsClient) GetProducts(ctx context.Context) ([]model.Product, erro
 
 	return products, nil
 }
+
+func (p *ProductsClient) GetProductByID(ctx context.Context, id string) (*model.Product, error) {
+	r, err := p.service.GetProductByID(ctx, &proto.ProductByIdRequest{
+		Id: id,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Product{
+		ID:     r.Product.Id,
+		Title:  r.Product.Title,
+		Price:  int(r.Product.Price),
+		Images: r.Product.Images,
+	}, nil
+}

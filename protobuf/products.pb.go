@@ -158,10 +158,90 @@ func (m *ProductResponse) GetProducts() []*Product {
 	return nil
 }
 
+type ProductByIdRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProductByIdRequest) Reset()         { *m = ProductByIdRequest{} }
+func (m *ProductByIdRequest) String() string { return proto.CompactTextString(m) }
+func (*ProductByIdRequest) ProtoMessage()    {}
+func (*ProductByIdRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d5d062641f99455d, []int{3}
+}
+
+func (m *ProductByIdRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ProductByIdRequest.Unmarshal(m, b)
+}
+func (m *ProductByIdRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ProductByIdRequest.Marshal(b, m, deterministic)
+}
+func (m *ProductByIdRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProductByIdRequest.Merge(m, src)
+}
+func (m *ProductByIdRequest) XXX_Size() int {
+	return xxx_messageInfo_ProductByIdRequest.Size(m)
+}
+func (m *ProductByIdRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProductByIdRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProductByIdRequest proto.InternalMessageInfo
+
+func (m *ProductByIdRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type ProductByIdResponse struct {
+	Product              *Product `protobuf:"bytes,1,opt,name=product,proto3" json:"product,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProductByIdResponse) Reset()         { *m = ProductByIdResponse{} }
+func (m *ProductByIdResponse) String() string { return proto.CompactTextString(m) }
+func (*ProductByIdResponse) ProtoMessage()    {}
+func (*ProductByIdResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d5d062641f99455d, []int{4}
+}
+
+func (m *ProductByIdResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ProductByIdResponse.Unmarshal(m, b)
+}
+func (m *ProductByIdResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ProductByIdResponse.Marshal(b, m, deterministic)
+}
+func (m *ProductByIdResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProductByIdResponse.Merge(m, src)
+}
+func (m *ProductByIdResponse) XXX_Size() int {
+	return xxx_messageInfo_ProductByIdResponse.Size(m)
+}
+func (m *ProductByIdResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProductByIdResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProductByIdResponse proto.InternalMessageInfo
+
+func (m *ProductByIdResponse) GetProduct() *Product {
+	if m != nil {
+		return m.Product
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Product)(nil), "protobuf.Product")
 	proto.RegisterType((*ProductRequest)(nil), "protobuf.ProductRequest")
 	proto.RegisterType((*ProductResponse)(nil), "protobuf.ProductResponse")
+	proto.RegisterType((*ProductByIdRequest)(nil), "protobuf.ProductByIdRequest")
+	proto.RegisterType((*ProductByIdResponse)(nil), "protobuf.ProductByIdResponse")
 }
 
 func init() {
@@ -169,7 +249,7 @@ func init() {
 }
 
 var fileDescriptor_d5d062641f99455d = []byte{
-	// 207 bytes of a gzipped FileDescriptorProto
+	// 265 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0x12, 0x2f, 0x28, 0xca, 0x2f,
 	0xc9, 0x4f, 0x2a, 0x4d, 0xd3, 0x07, 0x32, 0x52, 0x4a, 0x93, 0x4b, 0x8a, 0xf5, 0xc0, 0x22, 0x42,
 	0x1c, 0x30, 0x09, 0xa5, 0x58, 0x2e, 0xf6, 0x00, 0x88, 0x9c, 0x10, 0x1f, 0x17, 0x53, 0x66, 0x8a,
@@ -179,10 +259,14 @@ var fileDescriptor_d5d062641f99455d = []byte{
 	0x82, 0x45, 0x81, 0x19, 0xa8, 0x18, 0xca, 0x53, 0x12, 0xe0, 0xe2, 0x83, 0x1a, 0x1f, 0x94, 0x5a,
 	0x58, 0x9a, 0x5a, 0x5c, 0xa2, 0xe4, 0xc0, 0xc5, 0x0f, 0x17, 0x29, 0x2e, 0xc8, 0xcf, 0x2b, 0x4e,
 	0x15, 0xd2, 0xe5, 0xe2, 0x80, 0xb9, 0x0f, 0x68, 0x3d, 0xb3, 0x06, 0xb7, 0x91, 0xa0, 0x1e, 0xcc,
-	0x81, 0x7a, 0x30, 0xc5, 0x70, 0x25, 0x46, 0x61, 0x70, 0x33, 0x83, 0x53, 0x8b, 0xca, 0x40, 0xb6,
-	0xbb, 0x70, 0x71, 0xbb, 0xa7, 0x96, 0x40, 0x05, 0x8b, 0x85, 0x24, 0x30, 0x75, 0x43, 0x2c, 0x97,
-	0x92, 0xc4, 0x22, 0x03, 0x71, 0x84, 0x12, 0x83, 0x13, 0x7b, 0x14, 0x2b, 0x44, 0x96, 0x0d, 0x4c,
-	0x19, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0x12, 0xc1, 0xb8, 0x8a, 0x3f, 0x01, 0x00, 0x00,
+	0x81, 0x7a, 0x30, 0xc5, 0x70, 0x25, 0x4a, 0x2a, 0x5c, 0x42, 0x50, 0x41, 0xa7, 0x4a, 0xcf, 0x14,
+	0xa8, 0xb9, 0xe8, 0xae, 0x57, 0x72, 0xe2, 0x12, 0x46, 0x51, 0x05, 0xb5, 0x4b, 0x9b, 0x8b, 0x1d,
+	0x6a, 0x10, 0x58, 0x2d, 0x56, 0xab, 0x60, 0x2a, 0x8c, 0x96, 0x33, 0xc2, 0x9d, 0x1f, 0x9c, 0x5a,
+	0x54, 0x06, 0xf2, 0xa8, 0x0b, 0x17, 0xb7, 0x7b, 0x6a, 0x09, 0x54, 0xb0, 0x58, 0x48, 0x02, 0x53,
+	0x37, 0xc4, 0x3d, 0x52, 0x92, 0x58, 0x64, 0x20, 0x6e, 0x50, 0x62, 0x10, 0xf2, 0xe7, 0xe2, 0x43,
+	0x98, 0x02, 0x74, 0x9f, 0x8b, 0x90, 0x0c, 0x86, 0x72, 0x24, 0xcf, 0x49, 0xc9, 0xe2, 0x90, 0x85,
+	0x19, 0xe8, 0xc4, 0x1e, 0xc5, 0x0a, 0x51, 0xc1, 0x06, 0xa6, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff,
+	0xff, 0x9b, 0xea, 0x2d, 0x4a, 0xfb, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -199,6 +283,7 @@ const _ = grpc.SupportPackageIsVersion6
 type ProductServiceClient interface {
 	// Unary
 	GetProducts(ctx context.Context, in *ProductRequest, opts ...grpc.CallOption) (*ProductResponse, error)
+	GetProductByID(ctx context.Context, in *ProductByIdRequest, opts ...grpc.CallOption) (*ProductByIdResponse, error)
 }
 
 type productServiceClient struct {
@@ -218,10 +303,20 @@ func (c *productServiceClient) GetProducts(ctx context.Context, in *ProductReque
 	return out, nil
 }
 
+func (c *productServiceClient) GetProductByID(ctx context.Context, in *ProductByIdRequest, opts ...grpc.CallOption) (*ProductByIdResponse, error) {
+	out := new(ProductByIdResponse)
+	err := c.cc.Invoke(ctx, "/protobuf.ProductService/GetProductByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductServiceServer is the server API for ProductService service.
 type ProductServiceServer interface {
 	// Unary
 	GetProducts(context.Context, *ProductRequest) (*ProductResponse, error)
+	GetProductByID(context.Context, *ProductByIdRequest) (*ProductByIdResponse, error)
 }
 
 // UnimplementedProductServiceServer can be embedded to have forward compatible implementations.
@@ -230,6 +325,9 @@ type UnimplementedProductServiceServer struct {
 
 func (*UnimplementedProductServiceServer) GetProducts(ctx context.Context, req *ProductRequest) (*ProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProducts not implemented")
+}
+func (*UnimplementedProductServiceServer) GetProductByID(ctx context.Context, req *ProductByIdRequest) (*ProductByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProductByID not implemented")
 }
 
 func RegisterProductServiceServer(s *grpc.Server, srv ProductServiceServer) {
@@ -254,6 +352,24 @@ func _ProductService_GetProducts_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductService_GetProductByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServiceServer).GetProductByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/protobuf.ProductService/GetProductByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServiceServer).GetProductByID(ctx, req.(*ProductByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _ProductService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "protobuf.ProductService",
 	HandlerType: (*ProductServiceServer)(nil),
@@ -261,6 +377,10 @@ var _ProductService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProducts",
 			Handler:    _ProductService_GetProducts_Handler,
+		},
+		{
+			MethodName: "GetProductByID",
+			Handler:    _ProductService_GetProductByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

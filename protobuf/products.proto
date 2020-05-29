@@ -18,7 +18,16 @@ message ProductResponse {
     repeated Product products = 1;
 }
 
+message ProductByIdRequest {
+    string id = 1;
+}
+
+message ProductByIdResponse {
+    Product product = 1;
+}
+
 service ProductService{
     // Unary
     rpc GetProducts(ProductRequest) returns (ProductResponse) {};
+    rpc GetProductByID(ProductByIdRequest) returns (ProductByIdResponse) {};
 }
