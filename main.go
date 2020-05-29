@@ -35,10 +35,10 @@ func (r *QueryResolver) Products(c context.Context) ([]*model.Product, error) {
 
 	for _, value := range productsList {
 		product := &model.Product{
-			ID:     value.ID,
-			Title:  value.Title,
-			Price:  value.Price,
-			Images: value.Images,
+			ID:      value.ID,
+			Title:   value.Title,
+			Price:   value.Price,
+			Preview: value.Preview,
 		}
 
 		products = append(products, product)

@@ -9,7 +9,8 @@ message Product {
     string id = 1;
     string title = 2;
     uint32 price = 3;
-    repeated string images = 4;
+    string preview = 4;
+    repeated string images = 5;
 }
 
 message ProductRequest {} // empty

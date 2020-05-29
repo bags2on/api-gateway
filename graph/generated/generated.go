@@ -43,10 +43,11 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Product struct {
-		ID     func(childComplexity int) int
-		Images func(childComplexity int) int
-		Price  func(childComplexity int) int
-		Title  func(childComplexity int) int
+		ID      func(childComplexity int) int
+		Images  func(childComplexity int) int
+		Preview func(childComplexity int) int
+		Price   func(childComplexity int) int
+		Title   func(childComplexity int) int
 	}
 
 	Query struct {
@@ -88,6 +89,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Product.Images(childComplexity), true
+
+	case "Product.preview":
+		if e.complexity.Product.Preview == nil {
+			break
+		}
+
+		return e.complexity.Product.Preview(childComplexity), true
 
 	case "Product.price":
 		if e.complexity.Product.Price == nil {
@@ -176,10 +184,9 @@ var sources = []*ast.Source{
   id: ID!
   title: String!
   price: Int!
+  preview: String!
   images: [String!]
 }
-
-
 
 type Query {
   products: [Product!]!
@@ -357,6 +364,40 @@ func (ec *executionContext) _Product_price(ctx context.Context, field graphql.Co
 	res := resTmp.(int)
 	fc.Result = res
 	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Product_preview(ctx context.Context, field graphql.CollectedField, obj *model.Product) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Product",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Preview, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Product_images(ctx context.Context, field graphql.CollectedField, obj *model.Product) (ret graphql.Marshaler) {
@@ -1617,6 +1658,11 @@ func (ec *executionContext) _Product(ctx context.Context, sel ast.SelectionSet, 
 			}
 		case "price":
 			out.Values[i] = ec._Product_price(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "preview":
+			out.Values[i] = ec._Product_preview(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}

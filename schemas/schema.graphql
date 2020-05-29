@@ -2,9 +2,9 @@ type Product {
   id: ID!
   title: String!
   price: Int!
+  preview: String!
   images: [String!]
 }
-
 
 type Query {
   products: [Product!]!

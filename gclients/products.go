@@ -38,10 +38,10 @@ func (p *ProductsClient) GetProducts(ctx context.Context) ([]model.Product, erro
 
 	for _, value := range r.Products {
 		products = append(products, model.Product{
-			ID:     value.Id,
-			Title:  value.Title,
-			Price:  int(value.Price),
-			Images: value.Images,
+			ID:      value.Id,
+			Title:   value.Title,
+			Price:   int(value.Price),
+			Preview: value.Preview,
 		})
 	}
 
@@ -58,9 +58,10 @@ func (p *ProductsClient) GetProductByID(ctx context.Context, id string) (*model.
 	}
 
 	return &model.Product{
-		ID:     r.Product.Id,
-		Title:  r.Product.Title,
-		Price:  int(r.Product.Price),
-		Images: r.Product.Images,
+		ID:      r.Product.Id,
+		Title:   r.Product.Title,
+		Price:   int(r.Product.Price),
+		Images:  r.Product.Images,
+		Preview: r.Product.Preview,
 	}, nil
 }
