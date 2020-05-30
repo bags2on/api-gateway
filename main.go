@@ -12,8 +12,6 @@ import (
 	"github.com/bags2on/api-gateway/gclients"
 	"github.com/bags2on/api-gateway/graph/generated"
 	"github.com/bags2on/api-gateway/graph/model"
-	"github.com/go-chi/chi"
-	"github.com/rs/cors"
 )
 
 const (
@@ -77,36 +75,34 @@ func (s *Server) Query() generated.QueryResolver {
 	return &QueryResolver{server: s}
 }
 
-//func (s *Server) Products() generated.QueryResolver {
-//	return &QueryResolver{server: s}
-//}
-
 func (s *Server) ToExecutableSchema() graphql.ExecutableSchema {
 	return generated.NewExecutableSchema(generated.Config{
 		Resolvers: s,
 	})
 }
 
+func wrapGraphQl() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello"))
+	})
+}
+
+func middlewareOne(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+		next.ServeHTTP(w, r)
+	})
+}
+
 func main() {
-	//srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}})
-	//http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	//http.Handle("/query", srv)
 
 	s := Gozs()
+	r := http.NewServeMux()
 
-	router := chi.NewRouter()
+	r.Handle("/", middlewareOne(handler.NewDefaultServer(s.ToExecutableSchema())))
 
-	// Add CORS middleware around every request
-	// See https://github.com/rs/cors for full option listing
-	router.Use(cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowCredentials: true,
-		Debug:            true,
-	}).Handler)
-
-	router.Handle("/", handler.NewDefaultServer(s.ToExecutableSchema()))
-	router.Handle("/playground", playground.Handler("GraphQL playground", "/query"))
-
+	r.Handle("/playground", playground.Handler("GraphQL playground", "/query"))
 	log.Printf("connect to http://localhost:%s/playground for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, router))
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }
