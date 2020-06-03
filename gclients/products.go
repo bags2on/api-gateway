@@ -58,10 +58,12 @@ func (p *ProductsClient) GetProductByID(ctx context.Context, id string) (*model.
 	}
 
 	return &model.Product{
-		ID:      r.Product.Id,
-		Title:   r.Product.Title,
-		Price:   int(r.Product.Price),
-		Images:  r.Product.Images,
-		Preview: r.Product.Preview,
+		ID:          r.Product.Id,
+		Title:       r.Product.Title,
+		Price:       int(r.Product.Price),
+		Images:      r.Product.Images,
+		Preview:     r.Product.Preview,
+		Tags:        r.Product.Tags,
+		Description: &r.Product.Description,
 	}, nil
 }

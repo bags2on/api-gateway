@@ -11,6 +11,8 @@ message Product {
     uint32 price = 3;
     string preview = 4;
     repeated string images = 5;
+    repeated string tags = 6;
+    string description = 7;
 }
 
 message ProductRequest {} // empty

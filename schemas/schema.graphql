@@ -4,6 +4,8 @@ type Product {
   price: Int!
   preview: String!
   images: [String!]
+  tags: [String!]
+  description: String
 }
 
 type Query {
